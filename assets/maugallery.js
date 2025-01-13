@@ -1,8 +1,8 @@
-(function($) {
-  $.fn.mauGallery = function(options) {
+(function ($) {
+  $.fn.mauGallery = function (options) {
     var options = $.extend($.fn.mauGallery.defaults, options);
     var tagsCollection = [];
-    return this.each(function() {
+    return this.each(function () {
       $.fn.mauGallery.methods.createRowWrapper($(this));
       if (options.lightBox) {
         $.fn.mauGallery.methods.createLightBox(
@@ -15,7 +15,7 @@
 
       $(this)
         .children(".gallery-item")
-        .each(function(index) {
+        .each(function (index) {
           $.fn.mauGallery.methods.responsiveImageItem($(this));
           $.fn.mauGallery.methods.moveItemInRowWrapper($(this));
           $.fn.mauGallery.methods.wrapItemInColumn($(this), options.columns);
@@ -46,10 +46,10 @@
     lightboxId: null,
     showTags: true,
     tagsPosition: "bottom",
-    navigation: true
+    navigation: true,
   };
-  $.fn.mauGallery.listeners = function(options) {
-    $(".gallery-item").on("click", function() {
+  $.fn.mauGallery.listeners = function (options) {
+    $(".gallery-item").on("click", function () {
       if (options.lightBox && $(this).prop("tagName") === "IMG") {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
       } else {
@@ -67,12 +67,7 @@
   };
   $.fn.mauGallery.methods = {
     createRowWrapper(element) {
-      if (
-        !element
-          .children()
-          .first()
-          .hasClass("row")
-      ) {
+      if (!element.children().first().hasClass("row")) {
         element.append('<div class="gallery-items-row row"></div>');
       }
     },
@@ -119,81 +114,74 @@
         .attr("src", element.attr("src"));
       $(`#${lightboxId}`).modal("toggle");
     },
-    prevImage() {
-      let activeImage = null;
-      $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
-        }
-      });
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
-      let imagesCollection = [];
+    prevImage(lightboxId) {
+      // Step 1: Find the current image
+      let activeImage = $(".lightboxImage").attr("src"); // Get the image currently displayed.
+      let activeTag = $(".tags-bar span.active-tag").data("images-toggle"); // Check the active filter/tag (e.g., "all," "nature," etc.).
+
+      // Step 2: Gather all images for the current filter/tag
+      let imagesCollection = []; // This will store all the images in the gallery.
       if (activeTag === "all") {
-        $(".item-column").each(function() {
-          if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
-          }
+        // If the user wants all images
+        $(".gallery-item").each(function () {
+          // Go through each gallery item
+          imagesCollection.push($(this)); // Add it to the list
         });
       } else {
-        $(".item-column").each(function() {
-          if (
-            $(this)
-              .children("img")
-              .data("gallery-tag") === activeTag
-          ) {
-            imagesCollection.push($(this).children("img"));
+        // If a specific tag is active
+        $(".gallery-item").each(function () {
+          // Go through each gallery item
+          if ($(this).data("gallery-tag") === activeTag) {
+            // Check if it matches the active tag
+            imagesCollection.push($(this)); // Add matching images to the list
           }
         });
       }
-      let index = 0,
-        next = null;
 
-      $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i ;
-        }
-      });
-      next =
-        imagesCollection[index] ||
-        imagesCollection[imagesCollection.length - 1];
-      $(".lightboxImage").attr("src", $(next).attr("src"));
+      // Step 3: Find the index of the current image in the list
+      let index = imagesCollection.findIndex(
+        (img) => img.attr("src") === activeImage // Compare the current image's URL with each gallery item's URL
+      );
+
+      // Step 4: Move to the previous image (and wrap around if necessary)
+      index = (index - 1 + imagesCollection.length) % imagesCollection.length; // Move to the previous position. Wrap to the end if we're at the start.
+
+      // Step 5: Update the lightbox to show the new image
+      $(".lightboxImage").attr("src", imagesCollection[index].attr("src")); // Change the displayed image.
     },
-    nextImage() {
-      let activeImage = null;
-      $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
-        }
-      });
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
-      let imagesCollection = [];
+    nextImage(lightboxId) {
+      // Step 1: Find the current image
+      let activeImage = $(".lightboxImage").attr("src"); // Get the image currently displayed.
+      let activeTag = $(".tags-bar span.active-tag").data("images-toggle"); // Check the active filter/tag (e.g., "all," "nature," etc.).
+
+      // Step 2: Gather all images for the current filter/tag
+      let imagesCollection = []; // This will store all the images in the gallery.
       if (activeTag === "all") {
-        $(".item-column").each(function() {
-          if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
-          }
+        // If the user wants all images
+        $(".gallery-item").each(function () {
+          // Go through each gallery item
+          imagesCollection.push($(this)); // Add it to the list
         });
       } else {
-        $(".item-column").each(function() {
-          if (
-            $(this)
-              .children("img")
-              .data("gallery-tag") === activeTag
-          ) {
-            imagesCollection.push($(this).children("img"));
+        // If a specific tag is active
+        $(".gallery-item").each(function () {
+          // Go through each gallery item
+          if ($(this).data("gallery-tag") === activeTag) {
+            // Check if it matches the active tag
+            imagesCollection.push($(this)); // Add matching images to the list
           }
         });
       }
-      let index = 0,
-        next = null;
+      // Step 3: Find the index of the current image in the list
+      let index = imagesCollection.findIndex(
+        (img) => img.attr("src") === activeImage // Compare the current image's URL with each gallery item's URL
+      );
 
-      $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i;
-        }
-      });
-      next = imagesCollection[index] || imagesCollection[0];
-      $(".lightboxImage").attr("src", $(next).attr("src"));
+      // Step 4: Move to the next image (and wrap around if necessary)
+      index = (index + 1) % imagesCollection.length; // Move to the next position. Wrap to the start if we're at the end.
+
+      // Step 5: Update the lightbox to show the new image
+      $(".lightboxImage").attr("src", imagesCollection[index].attr("src")); // Change the displayed image.
     },
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
@@ -221,7 +209,7 @@
     showItemTags(gallery, position, tags) {
       var tagItems =
         '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
-      $.each(tags, function(index, value) {
+      $.each(tags, function (index, value) {
         tagItems += `<li class="nav-item active">
                 <span class="nav-link"  data-images-toggle="${value}">${value}</span></li>`;
       });
@@ -244,20 +232,14 @@
 
       var tag = $(this).data("images-toggle");
 
-      $(".gallery-item").each(function() {
-        $(this)
-          .parents(".item-column")
-          .hide();
+      $(".gallery-item").each(function () {
+        $(this).parents(".item-column").hide();
         if (tag === "all") {
-          $(this)
-            .parents(".item-column")
-            .show(300);
+          $(this).parents(".item-column").show(300);
         } else if ($(this).data("gallery-tag") === tag) {
-          $(this)
-            .parents(".item-column")
-            .show(300);
+          $(this).parents(".item-column").show(300);
         }
       });
-    }
+    },
   };
 })(jQuery);
