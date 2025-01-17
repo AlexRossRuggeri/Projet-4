@@ -22,7 +22,7 @@ body {
   font-size: 26px;
 }
 
-.nav ul {
+.nav menu {
   display: flex;
   list-style-type: none;
   font-size: 14px;
@@ -324,7 +324,7 @@ input[type="submit"] {
     padding-inline: 0;
   }
   .top-header .nav,
-  .top-header .nav ul {
+  .top-header .nav menu {
     width: 100%;
     padding: 0 0 0 0;
   }
