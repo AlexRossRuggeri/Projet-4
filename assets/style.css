@@ -221,6 +221,7 @@ q {
 }
 .form-container {
   flex: 2;
+  justify-items: center;
 }
 form {
   display: flex;
