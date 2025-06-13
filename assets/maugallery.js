@@ -8,18 +8,18 @@
         $.fn.mauGallery.methods.createLightBox(
           $(this),
           options.lightboxId,
-          options.navigation
+          options.navigation,
         );
       }
       $.fn.mauGallery.listeners(options);
 
       $(this)
-        .children(".gallery-item")
+        .children('.gallery-item')
         .each(function (index) {
           $.fn.mauGallery.methods.responsiveImageItem($(this));
           $.fn.mauGallery.methods.moveItemInRowWrapper($(this));
           $.fn.mauGallery.methods.wrapItemInColumn($(this), options.columns);
-          var theTag = $(this).data("gallery-tag");
+          var theTag = $(this).data('gallery-tag');
           if (
             options.showTags &&
             theTag !== undefined &&
@@ -33,7 +33,7 @@
         $.fn.mauGallery.methods.showItemTags(
           $(this),
           options.tagsPosition,
-          tagsCollection
+          tagsCollection,
         );
       }
 
@@ -45,39 +45,39 @@
     lightBox: true,
     lightboxId: null,
     showTags: true,
-    tagsPosition: "bottom",
+    tagsPosition: 'bottom',
     navigation: true,
   };
   $.fn.mauGallery.listeners = function (options) {
-    $(".gallery-item").on("click", function () {
-      if (options.lightBox && $(this).prop("tagName") === "IMG") {
+    $('.gallery-item').on('click', function () {
+      if (options.lightBox && $(this).prop('tagName') === 'IMG') {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
       } else {
         return;
       }
     });
 
-    $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
-    $(".gallery").on("click", ".mg-prev", () =>
-      $.fn.mauGallery.methods.prevImage(options.lightboxId)
+    $('.gallery').on('click', '.nav-link', $.fn.mauGallery.methods.filterByTag);
+    $('.gallery').on('click', '.mg-prev', () =>
+      $.fn.mauGallery.methods.prevImage(options.lightboxId),
     );
-    $(".gallery").on("click", ".mg-next", () =>
-      $.fn.mauGallery.methods.nextImage(options.lightboxId)
+    $('.gallery').on('click', '.mg-next', () =>
+      $.fn.mauGallery.methods.nextImage(options.lightboxId),
     );
   };
   $.fn.mauGallery.methods = {
     createRowWrapper(element) {
-      if (!element.children().first().hasClass("row")) {
+      if (!element.children().first().hasClass('row')) {
         element.append('<div class="gallery-items-row row"></div>');
       }
     },
     wrapItemInColumn(element, columns) {
       if (columns.constructor === Number) {
         element.wrap(
-          `<div class='item-column mb-4 col-${Math.ceil(12 / columns)}'></div>`
+          `<div class='item-column mb-4 col-${Math.ceil(12 / columns)}'></div>`,
         );
       } else if (columns.constructor === Object) {
-        var columnClasses = "";
+        var columnClasses = '';
         if (columns.xs) {
           columnClasses += ` col-${Math.ceil(12 / columns.xs)}`;
         }
@@ -96,96 +96,71 @@
         element.wrap(`<div class='item-column mb-4${columnClasses}'></div>`);
       } else {
         console.error(
-          `Columns should be defined as numbers or objects. ${typeof columns} is not supported.`
+          `Columns should be defined as numbers or objects. ${typeof columns} is not supported.`,
         );
       }
     },
     moveItemInRowWrapper(element) {
-      element.appendTo(".gallery-items-row");
+      element.appendTo('.gallery-items-row');
     },
     responsiveImageItem(element) {
-      if (element.prop("tagName") === "IMG") {
-        element.addClass("img-fluid");
+      if (element.prop('tagName') === 'IMG') {
+        element.addClass('img-fluid');
       }
     },
     openLightBox(element, lightboxId) {
       $(`#${lightboxId}`)
-        .find(".lightboxImage")
-        .attr("src", element.attr("src"));
-      $(`#${lightboxId}`).modal("toggle");
+        .find('.lightboxImage')
+        .attr('src', element.attr('src'));
+      $(`#${lightboxId}`).modal('toggle');
     },
     prevImage(lightboxId) {
-      // Step 1: Find the current image
-      let activeImage = $(".lightboxImage").attr("src"); // Get the image currently displayed.
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle"); // Check the active filter/tag (e.g., "all," "nature," etc.).
-
-      // Step 2: Gather all images for the current filter/tag
-      let imagesCollection = []; // This will store all the images in the gallery.
-      if (activeTag === "all") {
-        // If the user wants all images
-        $(".gallery-item").each(function () {
-          // Go through each gallery item
-          imagesCollection.push($(this)); // Add it to the list
+      let activeImage = $('.lightboxImage').attr('src');
+      let activeTag = $('.tags-bar span.active-tag').data('images-toggle');
+      let imagesCollection = [];
+      if (activeTag === 'all') {
+        $('.gallery-item').each(function () {
+          imagesCollection.push($(this));
         });
       } else {
-        // If a specific tag is active
-        $(".gallery-item").each(function () {
-          // Go through each gallery item
-          if ($(this).data("gallery-tag") === activeTag) {
-            // Check if it matches the active tag
-            imagesCollection.push($(this)); // Add matching images to the list
+        $('.gallery-item').each(function () {
+          if ($(this).data('gallery-tag') === activeTag) {
+            imagesCollection.push($(this));
           }
         });
       }
-
-      // Step 3: Find the index of the current image in the list
       let index = imagesCollection.findIndex(
-        (img) => img.attr("src") === activeImage // Compare the current image's URL with each gallery item's URL
+        (img) => img.attr('src') === activeImage,
       );
+      index = (index - 1 + imagesCollection.length) % imagesCollection.length;
 
-      // Step 4: Move to the previous image (and wrap around if necessary)
-      index = (index - 1 + imagesCollection.length) % imagesCollection.length; // Move to the previous position. Wrap to the end if we're at the start.
-
-      // Step 5: Update the lightbox to show the new image
-      $(".lightboxImage").attr("src", imagesCollection[index].attr("src")); // Change the displayed image.
+      $('.lightboxImage').attr('src', imagesCollection[index].attr('src'));
     },
     nextImage(lightboxId) {
-      // Step 1: Find the current image
-      let activeImage = $(".lightboxImage").attr("src"); // Get the image currently displayed.
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle"); // Check the active filter/tag (e.g., "all," "nature," etc.).
+      let activeImage = $('.lightboxImage').attr('src');
+      let activeTag = $('.tags-bar span.active-tag').data('images-toggle');
 
-      // Step 2: Gather all images for the current filter/tag
-      let imagesCollection = []; // This will store all the images in the gallery.
-      if (activeTag === "all") {
-        // If the user wants all images
-        $(".gallery-item").each(function () {
-          // Go through each gallery item
-          imagesCollection.push($(this)); // Add it to the list
+      let imagesCollection = [];
+      if (activeTag === 'all') {
+        $('.gallery-item').each(function () {
+          imagesCollection.push($(this));
         });
       } else {
-        // If a specific tag is active
-        $(".gallery-item").each(function () {
-          // Go through each gallery item
-          if ($(this).data("gallery-tag") === activeTag) {
-            // Check if it matches the active tag
-            imagesCollection.push($(this)); // Add matching images to the list
+        $('.gallery-item').each(function () {
+          if ($(this).data('gallery-tag') === activeTag) {
+            imagesCollection.push($(this));
           }
         });
       }
-      // Step 3: Find the index of the current image in the list
       let index = imagesCollection.findIndex(
-        (img) => img.attr("src") === activeImage // Compare the current image's URL with each gallery item's URL
+        (img) => img.attr('src') === activeImage,
       );
-
-      // Step 4: Move to the next image (and wrap around if necessary)
-      index = (index + 1) % imagesCollection.length; // Move to the next position. Wrap to the start if we're at the end.
-
-      // Step 5: Update the lightbox to show the new image
-      $(".lightboxImage").attr("src", imagesCollection[index].attr("src")); // Change the displayed image.
+      index = (index + 1) % imagesCollection.length;
+      $('.lightboxImage').attr('src', imagesCollection[index].attr('src'));
     },
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
-        lightboxId ? lightboxId : "galleryLightbox"
+        lightboxId ? lightboxId : 'galleryLightbox'
       }" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -215,29 +190,29 @@
       });
       var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
 
-      if (position === "bottom") {
+      if (position === 'bottom') {
         gallery.append(tagsRow);
-      } else if (position === "top") {
+      } else if (position === 'top') {
         gallery.prepend(tagsRow);
       } else {
         console.error(`Unknown tags position: ${position}`);
       }
     },
     filterByTag() {
-      if ($(this).hasClass("active-tag")) {
+      if ($(this).hasClass('active-tag')) {
         return;
       }
-      $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
+      $('.active-tag').removeClass('active active-tag');
+      $(this).addClass('active-tag');
 
-      var tag = $(this).data("images-toggle");
+      var tag = $(this).data('images-toggle');
 
-      $(".gallery-item").each(function () {
-        $(this).parents(".item-column").hide();
-        if (tag === "all") {
-          $(this).parents(".item-column").show(300);
-        } else if ($(this).data("gallery-tag") === tag) {
-          $(this).parents(".item-column").show(300);
+      $('.gallery-item').each(function () {
+        $(this).parents('.item-column').hide();
+        if (tag === 'all') {
+          $(this).parents('.item-column').show(300);
+        } else if ($(this).data('gallery-tag') === tag) {
+          $(this).parents('.item-column').show(300);
         }
       });
     },
