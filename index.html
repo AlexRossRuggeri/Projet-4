@@ -32,7 +32,14 @@
       rel="stylesheet"
     />
 
-    <script src="./assets/bootstrap/bootstrap.bundle.min.js" async></script>
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/images/slider/Large-Desktop/homme-costume-passage-pieton-Large.webp"
+      fetchpriority="high"
+      type="image/webp"
+    />
+
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       defer
@@ -99,7 +106,7 @@
               href="https://www.instagram.com/ninacarducci.photo/?hl=fr"
               target="_blank"
               ><img
-                src="assets/images/instagram.png"
+                src="assets/images/instagram.svg"
                 alt="Lien vers le profil Instagram de Nina Carducci"
             /></a>
           </li>
@@ -139,31 +146,61 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
-                width=""
-                height=""
-                src="./assets/images/slider/ryoji-iwata-crossing-the-street-desktop.webp"
+                src="./assets/images/slider/Large-Desktop/homme-costume-passage-pieton-Large.webp"
+                fetchpriority="high"
                 class="d-block w-100"
-                loading="lazy"
-                alt="Homme d'affaire en costume traversant à un passage pieton"
+                loading="eager"
+                srcset="
+                  ./assets/images/slider/Mobile/homme-costume-passage-pieton-Mobile.webp        650w,
+                  ./assets/images/slider/Tablet/homme-costume-passage-pieton-Tablet.webp       1000w,
+                  ./assets/images/slider/Desktop/homme-costume-passage-pieton-Desktop.webp     1180w,
+                  ./assets/images/slider/Large-Desktop/homme-costume-passage-pieton-Large.webp 1920w
+                "
+                sizes="(max-width: 650px) 650px,
+            (max-width: 1000px) 1000px,
+            (max-width: 1180px) 1180px,
+            (max-width: 1920px) 1920px"
+                alt="Homme d'affaire en costume traversant à un passage piéton"
               />
             </div>
             <div class="carousel-item">
               <img
-                src="./assets/images/slider/nicholas-green-concert-crowd-desktop.webp"
+                src="./assets/images/slider/Large-Desktop/foule-concert-Large.webp"
                 class="d-block w-100"
                 loading="lazy"
+                srcset="
+                  ./assets/images/slider/Mobile/foule-concert-Mobile.webp        650w,
+                  ./assets/images/slider/Tablet/foule-concert-Tablet.webp       1000w,
+                  ./assets/images/slider/Desktop/foule-concert-Desktop.webp     1180w,
+                  ./assets/images/slider/Large-Desktop/foule-concert-Large.webp 1920w
+                "
+                sizes="(max-width: 650px) 650px,
+              (max-width: 1000px) 1000px,
+         (max-width: 1180px) 1180px,
+         (max-width: 1920px) 1920px"
                 alt="Foule pendant un concert"
               />
             </div>
             <div class="carousel-item">
               <img
-                src="./assets/images/slider/edward-cisneros-wedding-couple-desktop.webp"
+                src="./assets/images/slider/Large-Desktop/couple-marie-embrasse-rang-invites-Large.webp"
                 class="d-block w-100"
                 loading="lazy"
+                srcset="
+                  ./assets/images/slider/Mobile/couple-marie-embrasse-rang-invites-Mobile.webp        650w,
+                  ./assets/images/slider/Tablet/couple-marie-embrasse-rang-invites-Tablet.webp       1000w,
+                  ./assets/images/slider/Desktop/couple-marie-embrasse-rang-invites-Desktop.webp     1180w,
+                  ./assets/images/slider/Large-Desktop/couple-marie-embrasse-rang-invites-Large.webp 1920w
+                "
+                sizes="(max-width: 650px) 650px,
+          (max-width: 1000px) 1000px,
+         (max-width: 1180px) 1180px,
+         (max-width: 1920px) 1920px"
                 alt="Couple marié en train de s'embrasser en penchant la mariée en arrière, entre 2 rangées d'invités"
               />
             </div>
           </div>
+
           <button
             class="carousel-control-prev"
             type="button"
@@ -188,9 +225,17 @@
       <article id="about">
         <div class="picture left">
           <img
+            src="./assets/images/Nina/nina-Large.webp"
             loading="lazy"
-            src="./assets/images/nina420w.webp"
-            alt="Photo de Nina Carducci, photographe professionnelle"
+            srcset="
+              ./assets/images/Nina/nina-Medium.webp 470w,
+              ./assets/images/Nina/nina-Large.webp  560w
+            "
+            sizes="(max-width: 650px) 468px,
+         (max-width: 1440px) 400px,
+         (max-width: 1650px) 470px,
+         (max-width:1920px) 560px"
+            alt="Nina Carducci, photographe professionnelle"
           />
         </div>
         <div id="about-me">
@@ -220,67 +265,148 @@
         <section class="container py-3">
           <div class="gallery" style="display: none">
             <img
-              loading="lazy"
               data-gallery-tag="Concert"
               class="gallery-item"
-              src="./assets/images/gallery/concerts/aaron-paul-wnX-fXzB6Cw-unsplash-240w.webp"
-              alt="Photo de lumières rouges lors d'un concert"
+              src="./assets/images/gallery/concerts/Large/lumieres-rouges-concert-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/concerts/Large/lumieres-rouges-concert-Large.webp   466w,
+                ./assets/images/gallery/concerts/Medium/lumieres-rouges-concert-Medium.webp 320w,
+                ./assets/images/gallery/concerts/Small/lumieres-rouges-concert-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+          (max-width: 1000px) 320px,
+          (max-width: 1180px) 320px,
+          (max-width: 1920px) 466px"
+              alt="Photo de spots de lumières rouges lors d'un concert"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Entreprises"
               class="gallery-item"
-              src="./assets/images/gallery/entreprise/ali-morshedlou-WMD64tMfc4k-unsplash-240w.webp"
+              src="./assets/images/gallery/entreprise/Large/homme-costume-bras-croises-confiant-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/entreprise/Large/homme-costume-bras-croises-confiant-Large.webp   466w,
+                ./assets/images/gallery/entreprise/Medium/homme-costume-bras-croises-confiant-Medium.webp 320w,
+                ./assets/images/gallery/entreprise/Small/homme-costume-bras-croises-confiant-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+            (max-width: 1920px) 466px"
               alt="Photo d'homme en costume, les bras croisés et l'air confiant"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Entreprises"
               class="gallery-item"
-              src="./assets/images/gallery/entreprise/jason-goodman-tHO1_OuKbg0-unsplash-240w.webp"
+              src="./assets/images/gallery/entreprise/Large/femme-souriante-reunion-professionnelle-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/entreprise/Large/femme-souriante-reunion-professionnelle-Large.webp   466w,
+                ./assets/images/gallery/entreprise/Medium/femme-souriante-reunion-professionnelle-Medium.webp 320w,
+                ./assets/images/gallery/entreprise/Small/femme-souriante-reunion-professionnelle-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+            (max-width: 1920px) 466px"
               alt="Photo de femme souriante en arrière-plan d'une réunion professionnelle"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Mariages"
               class="gallery-item"
-              src="./assets/images/gallery/mariage/hannah-busing-RvF2R_qMpRk-unsplash-240w.webp"
+              src="./assets/images/gallery/mariage/Large/mains-fiances-tenues-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/mariage/Large/mains-fiances-tenues-Large.webp   466w,
+                ./assets/images/gallery/mariage/Medium/mains-fiances-tenues-Medium.webp 320w,
+                ./assets/images/gallery/mariage/Small/mains-fiances-tenues-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+         (max-width: 1920px) 466px"
               alt="Photo de mains de fiancés qui se tiennent"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Portrait"
               class="gallery-item"
-              src="./assets/images/gallery/portraits/ade-tunji-rVkhWWZFAtQ-unsplash-240w.webp"
-              alt=" Photo portrait d'un homme ebloui par le soleil "
+              src="./assets/images/gallery/portraits/Large/portrait-homme-ebloui-soleil-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/portraits/Large/portrait-homme-ebloui-soleil-Large.webp   466w,
+                ./assets/images/gallery/portraits/Medium/portrait-homme-ebloui-soleil-Medium.webp 320w,
+                ./assets/images/gallery/portraits/Small/portrait-homme-ebloui-soleil-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+            (max-width: 1920px) 466px"
+              alt="Portrait d'un homme ebloui par le soleil"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Mariages"
               class="gallery-item"
-              src="./assets/images/gallery/mariage/jakob-owens-SiniLJkXhMc-unsplash-240w.webp"
-              alt=" Photo de couple marié souriant sur la plage devant un palmier"
+              src="./assets/images/gallery/mariage/Large/couple-marie-plage-palmier-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/mariage/Large/couple-marie-plage-palmier-Large.webp   466w,
+                ./assets/images/gallery/mariage/Medium/couple-marie-plage-palmier-Medium.webp 320w,
+                ./assets/images/gallery/mariage/Small/couple-marie-plage-palmier-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+         (max-width: 1000px) 320px,
+         (max-width: 1180px) 320px,
+         (max-width: 1920px) 466px"
+              alt="Photo de couple marié sur la plage devant un palmier"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Portrait"
               class="gallery-item"
-              src="./assets/images/gallery/portraits/nino-van-prattenburg--443cl1uR_8-unsplash-240w.webp"
-              alt=" Photo portrait d'une jeune femme à lunettes"
+              src="./assets/images/gallery/portraits/Large/portrait-femme-jeune-lunette-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/portraits/Large/portrait-femme-jeune-lunette-Large.webp   466w,
+                ./assets/images/gallery/portraits/Medium/portrait-femme-jeune-lunette-Medium.webp 320w,
+                ./assets/images/gallery/portraits/Small/portrait-femme-jeune-lunette-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+            (max-width: 1920px) 466px"
+              alt="Photo portrait d'une jeune femme à lunettes"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Concert"
               class="gallery-item"
-              src="./assets/images/gallery/concerts/austin-neill-hgO1wFPXl3I-unsplash-240w.webp"
-              alt=" Photo d'un chanteur en concert avec les bras en l'air"
+              src="./assets/images/gallery/concerts/Large/chanteur-concert-bras-leves-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/concerts/Large/chanteur-concert-bras-leves-Large.webp   466w,
+                ./assets/images/gallery/concerts/Medium/chanteur-concert-bras-leves-Medium.webp 320w,
+                ./assets/images/gallery/concerts/Small/chanteur-concert-bras-leves-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+            (max-width: 1920px) 466px"
+              alt="Photo d'un chanteur en concert avec les bras en l'air"
             />
             <img
-              loading="lazy"
               data-gallery-tag="Entreprises"
               class="gallery-item"
-              src="./assets/images/gallery/entreprise/mateus-campos-felipe-Fsgzm8N0hIY-unsplash-240w.webp"
-              alt=" Photo d'une femme souriante à son poste au travail"
+              src="./assets/images/gallery/entreprise/Large/femme-riant-bureau-travail-Large.webp"
+              loading="lazy"
+              srcset="
+                ./assets/images/gallery/entreprise/Large/femme-riant-bureau-travail-Large.webp   466w,
+                ./assets/images/gallery/entreprise/Medium/femme-riant-bureau-travail-Medium.webp 320w,
+                ./assets/images/gallery/entreprise/Small/femme-riant-bureau-travail-Small.webp   270w
+              "
+              sizes="(max-width: 650px) 270px,
+            (max-width: 1000px) 320px,
+            (max-width: 1180px) 320px,
+            (max-width: 1920px) 466px"
+              alt="Photo d'une femme riant à son poste de travail"
             />
           </div>
         </section>
@@ -386,8 +512,16 @@
           </div>
           <div class="picture right">
             <img
+              src="./assets/images/Camera/camera-Large.webp"
               loading="lazy"
-              src="./assets/images/camera-400w.webp"
+              srcset="
+                ./assets/images/Camera/camera-Medium.webp 390w,
+                ./assets/images/Camera/camera-Large.webp  450w
+              "
+              sizes="(max-width: 650px) 412px,
+            (max-width: 1000px) 388px,
+            (max-width: 1180px) 448px,
+            (max-width:1920px) 418px"
               alt="Photo d'un appareil photo stylisé"
             />
           </div>
