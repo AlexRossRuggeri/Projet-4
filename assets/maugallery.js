@@ -52,10 +52,12 @@
     $('.gallery-item').on('click', function () {
       if (options.lightBox && $(this).prop('tagName') === 'IMG') {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
-      } else {
-        return;
-      }
-    });
+  }});
+     $('.gallery-item').on('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && options.lightBox) {
+      e.preventDefault();
+      $(this).trigger('click'); 
+    }  });
 
     $('.gallery').on('click', '.nav-link', $.fn.mauGallery.methods.filterByTag);
     $('.gallery').on('click', '.mg-prev', () =>
@@ -167,13 +169,13 @@
                         <div class="modal-body">
                             ${
                               navigation
-                                ? '<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>'
+                                ? '<button class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;border:none"><</button>'
                                 : '<span style="display:none;" />'
                             }
                             <img class="lightboxImage img-fluid" alt="Contenu de l'image affichée dans la modale au clique"/>
                             ${
                               navigation
-                                ? '<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}">></div>'
+                                ? '<button class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;border:none">></button>'
                                 : '<span style="display:none;" />'
                             }
                         </div>
