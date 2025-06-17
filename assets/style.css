@@ -6,6 +6,12 @@ body {
   font-family: 'Inter', sans-serif;
   font-style: normal;
 }
+
+:focus {
+  outline: 2px solid #0000ff;
+  outline-offset: 2px;
+}
+
 .top-header {
   background-color: white;
   position: sticky;
@@ -18,10 +24,20 @@ body {
   align-items: center;
 }
 
-.top-header .name {
+.top-header h1 {
   font-size: 26px;
   width: 173px;
   font-weight: 400;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.logo-link:hover {
+  text-decoration: none;
+  color: #000;
 }
 
 .nav menu {
@@ -43,6 +59,12 @@ body {
 
 .social-link img {
   width: 20px;
+}
+
+.carousel-control-prev:focus .carousel-control-prev-icon,
+.carousel-control-next:focus .carousel-control-next-icon {
+  outline: 2px solid #0000ff;
+  outline-offset: 2px;
 }
 
 #about {
@@ -99,9 +121,6 @@ body {
   line-height: 21px;
 }
 
-#gallery {
-  /*  min-height: 100vh; */
-}
 .title {
   text-align: center;
   padding-block: 2em;
